@@ -1,6 +1,7 @@
 global:
   timezone: "Asia/Bangkok"
   domain: example.com
+  name: Sweet Home
   notification:
     telegram:
       botToken: ""
@@ -44,3 +45,26 @@ crowdsecfirewall:
 crowdsec:
   enrollKey: ""
   instanceName: orangepi
+
+pocketId:
+  subdomain: pocketid
+  encryptionKey: ""
+
+rauthy:
+  subdomain: rauthy
+  adminEmail: ""
+  secretRaft: ""
+  secretApi: ""
+  smtpHost: ""
+  smtpUser: ""
+  smtpPass: ""
+  smtpFrom: ""
+  encryptionKeys:
+    - id: ""
+      key: ""
+
+oauth2proxy:
+  subdomain: oauth2proxy
+  clientId: ""
+  clientSecret: ""
+  cookieSecret: ""

@@ -1,0 +1,10 @@
+services:
+  rauthy:
+    image: ghcr.io/moonlight8978/rauthy:latest
+    volumes:
+      - "${DATA_ROOT}/addons/rauthy/data:/app/data"
+      - ./config.toml:/app/config.toml
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.rauthy.loadbalancer.server.port=8080

@@ -1,0 +1,10 @@
+services:
+  memos:
+    image: ghcr.io/usememos/memos:stable
+    env_file: .env
+    volumes:
+      - "${DATA_ROOT}/addons/memos/data:/var/opt/memos"
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.memos.loadbalancer.server.port=5230
