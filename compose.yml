@@ -7,8 +7,8 @@ include:
   - rauthy/compose.yml
 
   # System
-  # - termix/compose.yml
-  # - traefik/compose.yml
+  - termix/compose.yml
+  - traefik/compose.yml
   - cloudflaretunnel/compose.yml
   - cloudflareddns/compose.yml
   - utils/compose.yml

@@ -1,0 +1,161 @@
+{{- $global := (ds "value").global -}}
+{{- $domain := $global.domain -}}
+{{- $sslipioDomain := printf "%s.%s" (strings.ReplaceAll "." "-" $global.machineIp) $global.sslipioDomain -}}
+{{- $config := (ds "value") -}}
+{{- $traefik := $config.traefik -}}
+# vim: set filetype=yaml:
+
+http:
+  routers:
+    homeassistant:
+      rule: "Host(`{{ printf "%s.%s" $config.homeassistant.subdomain $domain }}`)"
+      service: homeassistant@file
+      entryPoints:
+        - web
+      middlewares:
+        - crowdsec
+
+    memos:
+      rule: "Host(`{{ printf "%s.%s" $config.memos.subdomain $domain }}`)"
+      service: memos@docker
+      entryPoints:
+        - web
+      middlewares:
+        - crowdsec
+
+    actual:
+      rule: "Host(`{{ printf "%s.%s" $config.actual.subdomain $domain }}`)"
+      service: actual@docker
+      entryPoints:
+        - web
+      middlewares:
+        - crowdsec
+
+    pocketId:
+      rule: "Host(`{{ printf "%s.%s" $config.pocketId.subdomain $domain }}`)"
+      service: pocketid@docker
+      entryPoints:
+        - web
+      middlewares:
+        - crowdsec
+
+    rauthy:
+      rule: "Host(`{{ printf "%s.%s" $config.rauthy.subdomain $domain }}`)"
+      service: rauthy@docker
+      entryPoints:
+        - web
+      middlewares:
+        - crowdsec
+
+    oauth2proxy:
+      rule: "Host(`{{ printf "%s.%s" $config.oauth2proxy.subdomain $domain }}`)"
+      service: oauth2proxy@docker
+      entryPoints:
+        - web
+      middlewares:
+        - crowdsec
+
+    portainer:
+      rule: "Host(`{{ printf "%s-%s" $config.portainer.subdomain $sslipioDomain }}`)"
+      service: portainer@docker
+      entryPoints:
+        - web
+        - oauth2
+      middlewares:
+        - crowdsec
+
+    traefik:
+      rule: "Host(`{{ printf "%s-%s" $config.traefik.subdomain $sslipioDomain }}`)"
+      service: api@internal
+      entryPoints:
+        - webinternal
+        - oauth2
+      tls: {}
+
+    adguardhome:
+      rule: "Host(`{{ printf "%s-%s" $config.adguardhome.subdomain $sslipioDomain }}`)"
+      service: adguardhome@docker
+      entryPoints:
+        - webinternal
+      middlewares:
+        - crowdsec
+        - oauth2
+      tls: {}
+
+    wgeasy:
+      rule: "Host(`{{ printf "%s-%s" $config.wgeasy.subdomain $sslipioDomain }}`)"
+      service: wgeasy@docker
+      entryPoints:
+        - webinternal
+      middlewares:
+        - crowdsec
+        - oauth2
+      tls: {}
+
+    glances:
+      rule: "Host(`{{ printf "%s-%s" $config.glances.subdomain $sslipioDomain }}`)"
+      service: glances@file
+      entryPoints:
+        - webinternal
+      middlewares:
+        - crowdsec
+        - oauth2
+      tls: {}
+
+    termix:
+      rule: "Host(`{{ printf "%s-%s" $config.termix.subdomain $sslipioDomain }}`)"
+      service: termix@docker
+      entryPoints:
+        - webinternal
+      middlewares:
+        - crowdsec
+        - oauth2
+      tls: {}
+
+  services:
+    homeassistant:
+      loadBalancer:
+        servers:
+          - url: "http://host.docker.internal:8123"
+    glances:
+      loadBalancer:
+        servers:
+          - url: "http://host.docker.internal:61208"
+
+  middlewares:
+    oauth2:
+      forwardAuth:
+        address: http://oauth2proxy:4180/
+        trustForwardHeader: true
+        authResponseHeaders:
+          - X-Auth-Request-Access-Token
+          - Authorization
+          - X-Auth-Request-User
+          - X-Auth-Request-Email
+          - X-Auth-Request-Groups
+          - X-Auth-Request-Preferred-Username
+          - X-Auth-Request-Redirect
+
+    crowdsec:
+      plugin:
+        crowdsec:
+          enabled: true
+          logLevel: INFO
+          logFilePath: /var/log/traefik/crowdsec-bouncer.log
+          updateIntervalSeconds: 10
+          updateMaxFailure: 0
+          defaultDecisionSeconds: 60
+          httpTimeoutSeconds: 10
+          crowdsecMode: appsec
+          crowdsecAppsecEnabled: true
+          crowdsecAppsecHost: crowdsec:7422
+          crowdsecAppsecPath: "/"
+          crowdsecAppsecFailureBlock: true
+          crowdsecAppsecUnreachableBlock: true
+          crowdsecAppsecBodyLimit: 10485760
+          crowdsecLapiKey: {{$traefik.crowdsec.capiKey }}
+
+tls:
+  certificates:
+    - certFile: /acme.sh/{{$sslipioDomain}}_ecc/fullchain.cer
+      keyFile: /acme.sh/{{$sslipioDomain}}_ecc/{{$sslipioDomain}}.key
