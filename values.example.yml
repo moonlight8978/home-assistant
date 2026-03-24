@@ -126,7 +126,7 @@ adguardhome:
 traefik:
   subdomain: traefik
   crowdsec:
-    capiKey: ""
+    lapiKey: ""
 
 termix:
   subdomain: termix
