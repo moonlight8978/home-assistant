@@ -1,0 +1,74 @@
+#!/bin/sh
+
+set -eu
+
+backup_file="$HOME/backup.tar.gz"
+
+# Notification function for failures
+notify_failure() {
+    local exit_code=$1
+    local line_number=$2
+    local message="Backup failed with exit code ${exit_code} at line ${line_number}"
+
+    rm -rf "$backup_file"
+
+    shoutrrr send --url "$NOTIFICATION_URL" --title "Backup failed" --message "$message"
+
+    exit $exit_code
+}
+
+# Notification function for success
+notify_success() {
+    local backup_size_bytes=$(du -b "$backup_file" | cut -f1)
+    local backup_size_mb=$((backup_size_bytes / 1024 / 1024))
+
+    shoutrrr send \
+      --url "$NOTIFICATION_URL" \
+      --title "Backup success" \
+      --message "Backup completed successfully at $(date '+%Y-%m-%d %H:%M:%S')
+Size: ${backup_size_mb}MB"
+}
+
+# Trap errors to notify failure
+trap 'notify_failure $? $LINENO' ERR
+
+# Logging function
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >&2
+}
+
+log "Compressing backup data..."
+
+cd /data
+rg --files --no-ignore-parent --ignore-file=.ignore . | tar -vczf "$backup_file" --transform='s|^/data/||' --warning=no-file-changed -T -
+
+log "Starting backup to S3..."
+
+duplicity \
+  --allow-source-mismatch \
+  --full-if-older-than $RETENTION \
+  --no-encryption \
+  --s3-region-name $S3_REGION \
+  --s3-endpoint-url $S3_ENDPOINT_URL \
+  --progress \
+  backup \
+  "$backup_file" \
+  s3://$S3_BUCKET/$S3_PREFIX
+
+log "Removing old backups..."
+
+duplicity \
+  --allow-source-mismatch \
+  --s3-region-name $S3_REGION \
+  --s3-endpoint-url $S3_ENDPOINT_URL \
+  remove-all-but-n-full $RETAIN_FULL \
+  s3://$S3_BUCKET/$S3_PREFIX \
+  --force
+
+log "Backup completed"
+
+notify_success
+
+rm -rf "$backup_file"
+
+exit 0

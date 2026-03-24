@@ -1,0 +1,10 @@
+**/*.log
+addons/warp/**/*_log.txt
+addons/adguardhome/**/querylog.json
+
+addons/netdata
+addons/crowdsec
+addons/karakeep/**/assets
+
+data/*
+!data/backups

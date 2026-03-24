@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "Registering cron job for backup $CRON_EXPRESSION"
+echo "$CRON_EXPRESSION backup" > /var/spool/cron/crontabs/root
+
+echo "Cron started"
+/usr/sbin/crond -f -l 8 -d 6
