@@ -1,0 +1,36 @@
+{{- $global := (ds "value").global -}}
+{{- $oauth2proxy := (ds "value").oauth2proxy -}}
+{{- $rauthy := (ds "value").rauthy -}}
+{{- $domain := $global.domain -}}
+{{- $host := printf "%s.%s" $oauth2proxy.subdomain $domain -}}
+# vim: set filetype=toml:
+
+http_address = "0.0.0.0:4180"
+
+session_store_type = "cookie"
+
+cookie_domains = [".{{$domain}}"]
+cookie_secret = "{{$oauth2proxy.cookieSecret}}"
+cookie_secure = true
+cookie_httponly = true
+cookie_refresh = true
+cookie_expire = "168h0m0s"
+whitelist_domains = [".{{$domain}}"]
+
+email_domains = "*"
+
+reverse_proxy = true
+real_client_ip_header = "X-Forwarded-For"
+set_xauthrequest = true
+upstreams = "static://200"
+skip_provider_button = true
+
+provider_display_name = "{{$global.name}}"
+provider = "oidc"
+prompt = "login"
+oidc_issuer_url = "https://{{$rauthy.subdomain}}.{{$domain}}/auth/v1/"
+client_id = "{{$oauth2proxy.clientId}}"
+client_secret = "{{$oauth2proxy.clientSecret}}"
+redirect_url = "https://{{$host}}/oauth2/callback"
+code_challenge_method = "S256"
+scope = "openid email profile groups"

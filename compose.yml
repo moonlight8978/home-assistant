@@ -2,10 +2,9 @@ name: home-assistant
 
 include:
   # Auth
-  # - oauth2proxy/compose.yml
-  # - pocketid/compose.yml
-  # - oauth2proxy/compose.yml
-  # - rauthy/compose.yml
+  - oauth2proxy/compose.yml
+  - pocketid/compose.yml
+  - rauthy/compose.yml
 
   # System
   # - termix/compose.yml
@@ -24,7 +23,7 @@ include:
   # Applications
   - adguardhome/compose.yml
   - homeassistant/compose.yml
-  # - actual/compose.yml
-  # - memos/compose.yml
+  - actual/compose.yml
+  - memos/compose.yml
   # - mailcrab/compose.yml
   - wgeasy/compose.yml
