@@ -60,15 +60,16 @@ http:
       service: portainer@docker
       entryPoints:
         - web
-        - oauth2
       middlewares:
         - crowdsec
+        - oauth2
 
     traefik:
       rule: "Host(`{{ printf "%s-%s" $config.traefik.subdomain $sslipioDomain }}`)"
       service: api@internal
       entryPoints:
         - webinternal
+      middlewares:
         - oauth2
       tls: {}
 
