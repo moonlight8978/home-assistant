@@ -1,0 +1,14 @@
+services:
+  crowdsec:
+    image: crowdsecurity/crowdsec:slim
+    ports:
+      - "${LOCAL_HOST}:11080:8080"
+    env_file: .env
+    environment:
+      GID: ${GID-1000}
+    volumes:
+      - ./acquis.d:/etc/crowdsec/acquis.d:ro
+      - "${DATA_ROOT}/addons/crowdsec/data/config:/etc/crowdsec"
+      - "${DATA_ROOT}/addons/crowdsec/data/data:/var/lib/crowdsec/data"
+      - ${LOG_ROOT:-/var/log}:/var/log:ro
+    restart: unless-stopped

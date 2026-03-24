@@ -1,0 +1,14 @@
+services:
+  crowdsecfirewall:
+    image: ghcr.io/shgew/cs-firewall-bouncer-docker:latest
+    volumes:
+      - ./crowdsec-firewall-bouncer.yaml:/config/crowdsec-firewall-bouncer.yaml:ro
+      - ${LOG_ROOT:-/var/log}/crowdsecfirewall:/var/log/crowdsecfirewall
+      - /etc/localtime:/etc/localtime:ro
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true

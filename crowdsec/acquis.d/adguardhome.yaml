@@ -1,0 +1,4 @@
+filenames:
+  - /var/log/adguardhome/*.log
+labels:
+  type: adguardhome
