@@ -37,3 +37,10 @@ cloudflareTunnel:
   accountId: ""
   tunnelId: ""
   tunnelSecret: ""
+
+crowdsecfirewall:
+  capiKey: ""
+
+crowdsec:
+  enrollKey: ""
+  instanceName: orangepi

@@ -1,0 +1,44 @@
+{{- $crowdsecfirewall := (ds "value").crowdsecfirewall -}}
+mode: nftables
+daemonize: false
+pid_dir: /var/run/
+update_frequency: 10s
+log_mode: file
+log_dir: /var/log/crowdsecfirewall
+log_level: info
+log_compression: true
+log_max_size: 100
+log_max_backups: 3
+log_max_age: 30
+api_url: http://127.0.0.1:11080/
+api_key: {{ $crowdsecfirewall.capiKey }}
+insecure_skip_verify: false
+disable_ipv6: false
+deny_action: DROP
+deny_log: true
+supported_decisions_types:
+  - ban
+deny_log_prefix: "crowdsec: "
+blacklists_ipv4: crowdsec-blacklists
+blacklists_ipv6: crowdsec6-blacklists
+iptables_add_rule_comments: true
+
+nftables:
+  ipv4:
+    enabled: true
+    set-only: false
+    table: crowdsec
+    chain: crowdsec-chain
+  ipv6:
+    enabled: true
+    set-only: false
+    table: crowdsec6
+    chain: crowdsec6-chain
+
+nftables_hooks:
+  - input
+  - forward
+  - docker-user
+
+prometheus:
+  enabled: false

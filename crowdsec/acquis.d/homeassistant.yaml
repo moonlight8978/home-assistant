@@ -1,0 +1,6 @@
+filenames:
+  - /var/log/homeassistant/*
+exclude_regexps:
+  - "\\.gz$"
+labels:
+  type: home-assistant

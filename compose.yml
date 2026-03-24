@@ -13,8 +13,8 @@ include:
   - cloudflaretunnel/compose.yml
   - cloudflareddns/compose.yml
   - utils/compose.yml
-  # - crowdsec/compose.yml
-  # - crowdsecfirewall/compose.yml
+  - crowdsec/compose.yml
+  - crowdsecfirewall/compose.yml
   # - portainer/compose.yml
   # - duplicity/compose.yml
   - watchtower/compose.yml
