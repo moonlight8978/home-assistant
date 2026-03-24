@@ -12,6 +12,8 @@ services:
       - "${DATA_ROOT}/addons/traefik/data:/data"
       - /var/log/traefik:/var/log/traefik
       - "${DATA_ROOT}/addons/acmesh/data:/acme.sh:ro"
+    env_file:
+      - .env
     restart: unless-stopped
     extra_hosts:
       - "host.docker.internal:host-gateway"
