@@ -1,0 +1,10 @@
+{{- $global := (ds "value").global -}}
+tunnel: mini-lab
+credentials-file: /etc/cloudflared/creds/credentials.json
+warp-routing:
+  enabled: false
+no-autoupdate: true
+ingress:
+  - hostname: "*.{{ $global.domain }}"
+    service: http://traefik:8080
+  - service: http_status:404

@@ -1,0 +1,39 @@
+global:
+  timezone: "Asia/Bangkok"
+  domain: example.com
+  notification:
+    telegram:
+      botToken: ""
+      channelId: ""
+
+watchtower:
+  notification:
+    telegram:
+      channelId: ""
+
+wgeasy:
+  subdomain: wgeasy
+  admin:
+    username: ""
+    password: ""
+
+homeassistant:
+  oidc:
+    clientId: ""
+    clientSecret: ""
+
+acmesh:
+  cloudflare:
+    accountId: ""
+    zoneId: ""
+    token: ""
+
+cloudflareDdns:
+  apiToken: ""
+  zone: ""
+  subdomain: ddns
+
+cloudflareTunnel:
+  accountId: ""
+  tunnelId: ""
+  tunnelSecret: ""

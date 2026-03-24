@@ -1,0 +1,28 @@
+services:
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    command:
+      - tunnel
+      - --config
+      - /etc/cloudflared/config/config.yaml
+      - run
+    volumes:
+      - ./config.yaml:/etc/cloudflared/config/config.yaml:ro
+      - ./credentials.json:/etc/cloudflared/creds/credentials.json:ro
+      - ${TOOLS_ROOT}:/tools:ro
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "/tools/pulse",
+          "-silent",
+          "-mode=http",
+          "-host=127.0.0.1",
+          "-port=2000",
+          "-path=/ready",
+        ]
+      interval: 60s
+      timeout: 10s
+      retries: 5
+      start_period: 20s

@@ -1,0 +1,6 @@
+services:
+  cloudflareddns:
+    image: oznu/cloudflare-ddns:latest
+    env_file:
+      - .env
+    restart: unless-stopped

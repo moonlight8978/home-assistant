@@ -1,0 +1,11 @@
+services:
+  utils:
+    image: ghcr.io/moonlight8978/homeassistant-container-toolkit:latest
+    working_dir: /templates
+    profiles:
+      - dev
+    volumes:
+      - ${WORKDIR}:/templates
+      - ./bin:/usr/local/bin:ro
+      - ${XDG_CONFIG_ROOT}/sops/age:/root/.config/sops/age:ro
+      - ${TOOLS_ROOT}:/tools:ro

@@ -1,0 +1,29 @@
+#! /bin/sh
+
+set -eu
+
+remove_tmp() {
+    rm -rf /tmp/secrets.yml /tmp/values.yml
+}
+
+trap 'remove_tmp' EXIT
+
+sops decrypt secrets.yml > /tmp/secrets.yml
+yq '. *= load("values.yml")' /tmp/secrets.yml > /tmp/values.yml
+
+for file in $(rg --files --glob "*.gotmpl" /templates); do
+  # remove .gotmpl extension
+  filename="${file%.gotmpl}"
+
+  echo "Generating $filename"
+
+  gomplate --datasource value=/tmp/values.yml --file $file --out $filename
+
+  # check if extension of filename is .sh
+  if [ "${filename##*.}" = "sh" ]; then
+    echo "Making $filename executable"
+    chmod +x $filename
+  fi
+done
+
+remove_tmp

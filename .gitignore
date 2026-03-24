@@ -1,0 +1,10 @@
+# Secrets
+**/.env
+secrets.yml
+secrets.dec.yml
+values.yml
+
+
+# Temporary files
+.tmp/
+tmp/

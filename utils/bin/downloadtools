@@ -1,0 +1,57 @@
+#! /bin/sh
+
+set -eu
+
+TOOLS_DIR=/tools
+
+# Detect OS and architecture
+OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+ARCH=$(uname -m)
+
+# Map architecture to GitHub release format
+case $ARCH in
+x86_64)
+  ARCH="amd64"
+  ;;
+aarch64 | arm64)
+  ARCH="arm64"
+  ;;
+*)
+  echo "Unsupported architecture: $ARCH"
+  exit 1
+  ;;
+esac
+
+# Check if pulse binary already exists
+PULSE_VERSION=v1.0.1
+PULSE_BINARY="$TOOLS_DIR/pulse"
+if [ -f "$PULSE_BINARY" ]; then
+  echo "Pulse binary already exists at $PULSE_BINARY"
+  exit 0
+fi
+
+# Create tools directory if it doesn't exist
+mkdir -p "$TOOLS_DIR"
+
+# Download URL
+DOWNLOAD_URL="https://github.com/moonlight8978/pulse/releases/download/${PULSE_VERSION}/pulse_${OS}_${ARCH}.tar.gz"
+TEMP_DIR=$(mktemp -d)
+
+echo "Downloading pulse for $OS/$ARCH..."
+echo "URL: $DOWNLOAD_URL"
+
+# Download and extract
+cd "$TEMP_DIR"
+if curl -L -o pulse.tar.gz "$DOWNLOAD_URL"; then
+  tar -xzf pulse.tar.gz
+  mv pulse "$PULSE_BINARY"
+  chmod +x "$PULSE_BINARY"
+  echo "Successfully downloaded and installed pulse to $PULSE_BINARY"
+else
+  echo "Error: Failed to download pulse from $DOWNLOAD_URL"
+  exit 1
+fi
+
+# Cleanup
+cd /
+rm -rf "$TEMP_DIR"

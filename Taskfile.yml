@@ -1,0 +1,6 @@
+version: 3
+
+tasks:
+  tpl:
+    cmds:
+      - docker compose run --rm utils maketemplate

@@ -1,0 +1,31 @@
+services:
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:latest
+    env_file:
+      - .env
+    privileged: true
+    volumes:
+      - /run/dbus:/run/dbus:ro
+      - "${DATA_ROOT}/data:/config"
+      - ./secrets.yaml:/config/secrets.yaml:ro
+      - ./homeassistant/entrypoint.sh:/entrypoint.sh:ro
+    network_mode: host
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "curl",
+          "--silent",
+          "--fail",
+          "--output",
+          "/dev/null",
+          "http://localhost:8123",
+        ]
+      interval: 60s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    depends_on:
+      adguardhome:
+        condition: service_healthy

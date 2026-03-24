@@ -1,0 +1,30 @@
+name: home-assistant
+
+include:
+  # Auth
+  # - oauth2proxy/compose.yml
+  # - pocketid/compose.yml
+  # - oauth2proxy/compose.yml
+  # - rauthy/compose.yml
+
+  # System
+  # - termix/compose.yml
+  # - traefik/compose.yml
+  - cloudflaretunnel/compose.yml
+  - cloudflareddns/compose.yml
+  - utils/compose.yml
+  # - crowdsec/compose.yml
+  # - crowdsecfirewall/compose.yml
+  # - portainer/compose.yml
+  # - duplicity/compose.yml
+  - watchtower/compose.yml
+  # - glances/compose.yml
+  - acmesh/compose.yml
+
+  # Applications
+  - adguardhome/compose.yml
+  - homeassistant/compose.yml
+  # - actual/compose.yml
+  # - memos/compose.yml
+  # - mailcrab/compose.yml
+  - wgeasy/compose.yml
