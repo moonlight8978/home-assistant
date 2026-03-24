@@ -1,0 +1,8 @@
+{{- $portainer := (ds "value").portainer -}}
+#!/bin/sh
+
+/portainer \
+  --log-level DEBUG \
+  --log-mode NOCOLOR \
+  --http-enabled \
+  --license-key {{$portainer.license}}

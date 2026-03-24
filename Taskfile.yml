@@ -2,5 +2,9 @@ version: 3
 
 tasks:
   tpl:
-    cmds:
-      - docker compose run --rm utils maketemplate
+    desc: Generate config/env files with secrets and values
+    cmd: docker compose run --rm utils maketemplate
+
+  sops:
+    desc: Edit secrets
+    cmd: sops edit secrets.yml
