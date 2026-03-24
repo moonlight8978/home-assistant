@@ -19,28 +19,28 @@ and low resource hosts. I'm using an Orange Pi Zero 3 (4GiB RAM, 64GiB SD).
 
 ## Services included by default
 
-| Service          | Purpose                                     |
-| ---------------- | ------------------------------------------- |
-| oauth2proxy      | Forward Auth Proxy                          |
-| pocketid         | Passkeys login                              |
-| rauthy           | OAuth federation, Central Identity Provider |
-| termix           | Web Shell                                   |
-| traefik          | Reverse Proxy                               |
-| cloudflaretunnel | Allow Internet access to web services       |
-| cloudflareddns   | Cloudflare DDNS                             |
-| utils            | Render config, secrets from templates       |
-| crowdsec         | Threat Intelligence, WAF                    |
-| crowdsecfirewall | Firewall                                    |
-| portainer        | Monitor containers                          |
-| duplicity        | Backup/Restore                              |
-| watchtower       | Auto-update docker images                   |
-| glances          | Host monitoring                             |
-| acmesh           | SSL auto renew                              |
-| adguardhome      | DNS server                                  |
-| homeassistant    | Home Assistant                              |
-| actual           | Budget Management                           |
-| memos            | Notes taking app                            |
-| wgeasy           | VPN for remote access                       |
+| Service                                                                        | Purpose                                     |
+| ------------------------------------------------------------------------------ | ------------------------------------------- |
+| [oauth2proxy](https://github.com/oauth2-proxy/oauth2-proxy)                    | Forward Auth Proxy                          |
+| [pocketid](https://github.com/pocket-id/pocket-id)                             | Passkeys login                              |
+| [rauthy](https://github.com/moonlight8978/rauthy)                              | OAuth federation, Central Identity Provider |
+| [termix](https://github.com/lukegus/termix)                                    | Web Shell                                   |
+| [traefik](https://github.com/traefik/traefik)                                  | Reverse Proxy                               |
+| [cloudflaretunnel](https://github.com/cloudflare/cloudflared)                  | Allow Internet access to web services       |
+| [cloudflareddns](https://github.com/oznu/docker-cloudflare-ddns)               | Cloudflare DDNS                             |
+| [utils](https://github.com/moonlight8978/containers/tree/main/hac-toolkit)     | Render config, secrets from templates       |
+| [crowdsec](https://github.com/crowdsecurity/crowdsec)                          | Threat Intelligence, WAF                    |
+| [crowdsecfirewall](https://github.com/crowdsecurity/cs-firewall-bouncer)       | Firewall                                    |
+| [portainer](https://github.com/portainer/portainer)                            | Monitor containers                          |
+| [duplicity](https://github.com/moonlight8978/containers/tree/main/hac-toolkit) | Backup/Restore                              |
+| [watchtower](https://github.com/nicholas-fedor/watchtower)                     | Auto-update docker images                   |
+| [glances](https://github.com/nicolargo/glances)                                | Host monitoring                             |
+| [acmesh](https://github.com/acmesh-official/acme.sh)                           | SSL auto renew                              |
+| [adguardhome](https://github.com/AdguardTeam/AdGuardHome)                      | DNS server                                  |
+| [homeassistant](https://github.com/home-assistant/core)                        | Home Assistant                              |
+| [actual](https://github.com/actualbudget/actual)                               | Budget Management                           |
+| [memos](https://github.com/usememos/memos)                                     | Notes taking app                            |
+| [wgeasy](https://github.com/wg-easy/wg-easy)                                   | VPN for remote access                       |
 
 To reduce resource use, comment out unneeded services in `compose.yml`.
 
