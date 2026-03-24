@@ -1,0 +1,12 @@
+services:
+  glances:
+    image: nicolargo/glances:latest
+    env_file: .env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/hostname:/etc/hostname:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./glances.conf:/glances/conf/glances.conf:ro
+    restart: unless-stopped
+    pid: host
+    network_mode: host

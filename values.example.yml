@@ -80,3 +80,6 @@ duplicity:
   notification:
     telegram:
       channelId: ""
+
+portainer:
+  license: ""
