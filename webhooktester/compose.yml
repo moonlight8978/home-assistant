@@ -1,0 +1,20 @@
+services:
+  webhooktester:
+    image: ghcr.io/tarampampam/webhook-tester:2
+    command:
+      - start
+      - --storage-driver=memory
+    env_file:
+      - .env
+    volumes:
+      - "${DATA_ROOT}/addons/webhooktester/data:/data"
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.webhooktester.loadbalancer.server.port=8080
+    healthcheck:
+      test: ["CMD", "/bin/app", "start", "healthcheck"]
+      interval: 60s
+      timeout: 10s
+      retries: 5
+      start_period: 20s

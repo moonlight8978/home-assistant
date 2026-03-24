@@ -117,6 +117,9 @@ memos:
 actual:
   subdomain: actual
 
+webhooktester:
+  subdomain: webhooktester
+
 glances:
   subdomain: glances
 

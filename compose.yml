@@ -25,5 +25,6 @@ include:
   - homeassistant/compose.yml
   - actual/compose.yml
   - memos/compose.yml
+  - webhooktester/compose.yml
   # - mailcrab/compose.yml
   - wgeasy/compose.yml

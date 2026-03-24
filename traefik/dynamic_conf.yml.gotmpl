@@ -113,6 +113,26 @@ http:
         - oauth2
       tls: {}
 
+    webhooktesterSession:
+      rule: "Host(`{{ printf "%s-%s" $config.webhooktester.subdomain $sslipioDomain }}`) && PathPrefix(`/s/`)"
+      service: webhooktester@docker
+      entryPoints:
+        - webinternal
+      middlewares:
+        - crowdsec
+        - oauth2
+      priority: 100
+      tls: {}
+
+    webhooktester:
+      rule: "Host(`{{ printf "%s-%s" $config.webhooktester.subdomain $sslipioDomain }}`)"
+      service: webhooktester@docker
+      entryPoints:
+        - webinternal
+      middlewares:
+        - crowdsec
+      tls: {}
+
   services:
     homeassistant:
       loadBalancer:
