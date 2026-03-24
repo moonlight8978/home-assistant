@@ -44,9 +44,7 @@ rg --files --no-ignore-parent --ignore-file=.ignore . | tar -vczf "$backup_file"
 
 log "Starting backup to S3..."
 
-alias duplicity-direct="env HTTP_PROXY='' HTTPS_PROXY='' http_proxy='' https_proxy='' duplicity"
-
-duplicity-direct \
+duplicity \
   --allow-source-mismatch \
   --full-if-older-than $RETENTION \
   --no-encryption \
@@ -59,7 +57,7 @@ duplicity-direct \
 
 log "Removing old backups..."
 
-duplicity-direct \
+duplicity \
   --allow-source-mismatch \
   --s3-region-name $S3_REGION \
   --s3-endpoint-url $S3_ENDPOINT_URL \
