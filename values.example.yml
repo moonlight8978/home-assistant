@@ -69,7 +69,6 @@ oauth2proxy:
   clientSecret: ""
   cookieSecret: ""
 
-<<<<<<< Updated upstream
 duplicity:
   s3:
     region: apac
@@ -81,7 +80,6 @@ duplicity:
   notification:
     telegram:
       channelId: ""
-=======
+
 portainer:
   license: ""
->>>>>>> Stashed changes
