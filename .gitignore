@@ -8,3 +8,6 @@ values.yml
 # Temporary files
 .tmp/
 tmp/
+
+.agents/
+plans/
