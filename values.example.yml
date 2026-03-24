@@ -68,3 +68,15 @@ oauth2proxy:
   clientId: ""
   clientSecret: ""
   cookieSecret: ""
+
+duplicity:
+  s3:
+    region: apac
+    endpoint: "https://<account-id>.r2.cloudflarestorage.com"
+    bucket: home-assistant
+    prefix: backup
+    accessKey: ""
+    secretKey: ""
+  notification:
+    telegram:
+      channelId: ""

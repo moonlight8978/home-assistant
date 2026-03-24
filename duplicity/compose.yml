@@ -1,0 +1,13 @@
+services:
+  duplicity:
+    image: ghcr.io/moonlight8978/homeassistant-container-toolkit:latest
+    command: cron
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - "${DATA_ROOT}/addons:/data/addons:ro"
+      - "${DATA_ROOT}/data:/data/data:ro"
+      - "${DATA_ROOT}/data/restore:/data/restore"
+      - ./.ignore:/data/.ignore:ro
+      - ./bin:/usr/local/bin:ro
+    env_file: .env
+    restart: unless-stopped
