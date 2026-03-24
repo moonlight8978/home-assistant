@@ -1,0 +1,11 @@
+services:
+  termix:
+    image: ghcr.io/lukegus/termix:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - "${DATA_ROOT}/addons/termix/data:/app/data"
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.termix.loadbalancer.server.port=8080
