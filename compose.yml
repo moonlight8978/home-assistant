@@ -7,6 +7,7 @@ include:
   - rauthy/compose.yml
 
   # System
+  - dockerproxy/compose.yml
   - termix/compose.yml
   - traefik/compose.yml
   - cloudflaretunnel/compose.yml
@@ -27,3 +28,8 @@ include:
   - memos/compose.yml
   # - mailcrab/compose.yml
   - wgeasy/compose.yml
+
+networks:
+  dockerproxy:
+    internal: true
+    driver: bridge

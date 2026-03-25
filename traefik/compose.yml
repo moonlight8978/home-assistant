@@ -1,12 +1,11 @@
 services:
   traefik:
-    image: traefik:latest
+    image: traefik:v3
     ports:
       # Internal Web
-      - "${LOCAL_HOST}:80:80"
-      - "${LOCAL_HOST}:443:443"
+      - "${LAN_HOST}:80:10080"
+      - "${LAN_HOST}:443:10443"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik.yml:/etc/traefik/traefik.yml:ro
       - ./dynamic_conf.yml:/etc/traefik/dynamic_conf.yml:ro
       - "${DATA_ROOT}/addons/traefik/data:/data"
@@ -15,5 +14,12 @@ services:
     env_file:
       - .env
     restart: unless-stopped
+    depends_on:
+      - dockerproxy
+    security_opt:
+      - no-new-privileges:true
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    networks:
+      - default
+      - dockerproxy

@@ -17,18 +17,19 @@ entryPoints:
     forwardedHeaders: *trustedProxies
 
   webinternalinsecure:
-    address: ":80"
+    address: ":10080"
     http:
       redirections:
         entryPoint:
-          to: webinternal
+          to: ":443"
           scheme: https
   webinternal:
-    address: ":443"
+    address: ":10443"
 providers:
   docker:
     defaultRule: ""
     exposedByDefault: false
+    endpoint: "tcp://dockerproxy:2375"
   file:
     filename: /etc/traefik/dynamic_conf.yml
     watch: true
