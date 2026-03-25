@@ -28,3 +28,8 @@ include:
   - memos/compose.yml
   # - mailcrab/compose.yml
   - wgeasy/compose.yml
+
+networks:
+  dockerproxy:
+    internal: true
+    driver: bridge

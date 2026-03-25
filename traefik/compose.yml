@@ -20,3 +20,6 @@ services:
       - no-new-privileges:true
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    networks:
+      - default
+      - dockerproxy
