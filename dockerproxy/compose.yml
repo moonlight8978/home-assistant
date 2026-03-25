@@ -18,7 +18,7 @@ services:
       - no-new-privileges
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    user: "65534"
+    user: "65534:${DOCKER_GID}"
     networks:
       - dockerproxy
 
