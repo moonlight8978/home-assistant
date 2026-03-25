@@ -1,0 +1,23 @@
+services:
+  dockerproxy:
+    image: wollomatic/socket-proxy:1
+    command:
+      - '-loglevel=info'
+      - '-allowfrom=traefik'
+      - '-listenip=0.0.0.0'
+      - '-allowGET=/v1\..{1,2}/(version|containers/.*|events.*)'
+      - '-allowHEAD=/_ping'
+      - '-shutdowngracetime=5'
+      - '-watchdoginterval=600'
+      - '-stoponwatchdog'
+    restart: unless-stopped
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    user: "65534"
+
+
