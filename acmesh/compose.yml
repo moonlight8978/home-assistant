@@ -5,8 +5,6 @@ services:
     env_file: .env
     volumes:
       - "${DATA_ROOT}/addons/acmesh/data:/acme.sh"
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    network_mode: host
     restart: unless-stopped
     stdin_open: true
     tty: true
