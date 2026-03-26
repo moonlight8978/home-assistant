@@ -9,7 +9,7 @@ http:
   routers:
     homeassistant:
       rule: "Host(`{{ printf "%s.%s" $config.homeassistant.subdomain $domain }}`)"
-      service: homeassistant@file
+      service: homeassistant@docker
       entryPoints:
         - web
       middlewares:
@@ -114,10 +114,6 @@ http:
       tls: {}
 
   services:
-    homeassistant:
-      loadBalancer:
-        servers:
-          - url: "http://host.docker.internal:8123"
     glances:
       loadBalancer:
         servers:
