@@ -5,12 +5,12 @@ services:
       # Internal Web
       - "${LAN_HOST}:80:10080"
       - "${LAN_HOST}:443:10443"
-    user: "${NON_ROOT_USER}"
     volumes:
       - ./traefik.yml:/etc/traefik/traefik.yml:ro
       - ./dynamic_conf.yml:/etc/traefik/dynamic_conf.yml:ro
       - /var/log/traefik:/var/log/traefik
       - "${DATA_ROOT}/addons/acmesh/data:/acme.sh:ro"
+      - "${DATA_ROOT}/addons/traefik/plugins-storage:/plugins-storage"
     env_file:
       - .env
     restart: unless-stopped
