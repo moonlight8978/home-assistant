@@ -4,8 +4,9 @@ services:
     working_dir: /templates
     profiles:
       - dev
+    user: "${NON_ROOT_USER}"
     volumes:
       - ${WORKDIR}:/templates
       - ./bin:/usr/local/bin:ro
-      - ${XDG_CONFIG_ROOT}/sops/age:/root/.config/sops/age:ro
+      - ${XDG_CONFIG_ROOT}/sops/age:/.config/sops/age:ro
       - ${TOOLS_ROOT}:/tools:ro
