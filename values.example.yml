@@ -12,7 +12,6 @@ global:
     local:
       - 192.168.0.0/16
       - 10.0.0.0/8
-      - 172.17.0.0/16
       - 172.18.0.0/16
     cloudflare:
       # Cloudflare IPs https://www.cloudflare.com/ips-v4/

@@ -1,0 +1,8 @@
+services:
+  whoami:
+    image: traefik/whoami:latest
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.whoami.loadbalancer.server.port=80
+

@@ -5,13 +5,7 @@ entryPoints:
   websecure:
     address: ":8443"
     forwardedHeaders: &trustedProxies
-      trustedIPs:
-        {{- range $global.trustedCidrs.cloudflare }}
-        - {{ . }}
-        {{- end }}
-        {{- range $global.trustedCidrs.local }}
-        - {{ . }}
-        {{- end }}
+      insecure: false
   web:
     address: ":8080"
     forwardedHeaders: *trustedProxies
@@ -23,8 +17,10 @@ entryPoints:
         entryPoint:
           to: ":443"
           scheme: https
+    forwardedHeaders: *trustedProxies
   webinternal:
     address: ":10443"
+    forwardedHeaders: *trustedProxies
 providers:
   docker:
     defaultRule: ""
@@ -36,20 +32,6 @@ providers:
 api:
   dashboard: true
   insecure: false
-accessLog:
-  filePath: /var/log/traefik/access.log
-  format: common
-  fields:
-    defaultMode: keep
-    names:
-      # sensitive fields
-      api-key: drop
-      x-api-key: drop
-      key: drop
-      access-key: drop
-      password: drop
-      # prefer local time
-      StartUTC: drop
 experimental:
   plugins:
     crowdsec:

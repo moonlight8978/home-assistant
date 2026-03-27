@@ -18,6 +18,7 @@ for file in $(rg --files --glob "*.gotmpl" /templates); do
   echo "Generating $filename"
 
   gomplate --datasource value=/tmp/values.yml --file $file --out $filename
+  chmod 600 "$filename"
 
   # check if extension of filename is .sh
   if [ "${filename##*.}" = "sh" ]; then
