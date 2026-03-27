@@ -2,6 +2,7 @@ services:
   memos:
     image: ghcr.io/usememos/memos:stable
     env_file: .env
+    user: "${NON_ROOT_USER}"
     volumes:
       - "${DATA_ROOT}/addons/memos/data:/var/opt/memos"
     restart: unless-stopped

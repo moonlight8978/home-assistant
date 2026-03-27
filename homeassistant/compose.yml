@@ -1,6 +1,7 @@
 services:
   homeassistant:
     image: ghcr.io/home-assistant/home-assistant:latest
+    user: "${NON_ROOT_USER}"
     env_file:
       - .env
     volumes:

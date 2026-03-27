@@ -3,6 +3,7 @@ services:
     image: crowdsecurity/crowdsec:slim
     ports:
       - "${LOCAL_HOST}:11080:8080"
+    user: "${NON_ROOT_USER}"
     env_file: .env
     environment:
       GID: ${GID-1000}

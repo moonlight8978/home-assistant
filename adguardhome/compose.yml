@@ -30,6 +30,7 @@ services:
       # DNSCrypt
       # - 15443:5443/tcp
       # - 15443:5443/udp
+    user: "${NON_ROOT_USER}"
     volumes:
       - "${DATA_ROOT}/addons/adguardhome/data/work:/opt/adguardhome/work"
       - "${DATA_ROOT}/addons/adguardhome/data/conf:/opt/adguardhome/conf"

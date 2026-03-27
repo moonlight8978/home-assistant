@@ -6,6 +6,7 @@ services:
       - --config
       - /etc/cloudflared/config/config.yaml
       - run
+    user: "${NON_ROOT_USER}"
     volumes:
       - ./config.yaml:/etc/cloudflared/config/config.yaml:ro
       - ./credentials.json:/etc/cloudflared/creds/credentials.json:ro

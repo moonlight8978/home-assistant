@@ -2,6 +2,7 @@ services:
   acmesh:
     image: neilpang/acme.sh:latest
     command: daemon
+    user: "${NON_ROOT_USER}"
     env_file: .env
     volumes:
       - "${DATA_ROOT}/addons/acmesh/data:/acme.sh"

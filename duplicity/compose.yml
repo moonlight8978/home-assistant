@@ -2,6 +2,7 @@ services:
   duplicity:
     image: ghcr.io/moonlight8978/homeassistant-container-toolkit:latest
     command: cron
+    user: "${NON_ROOT_USER}"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - "${DATA_ROOT}/addons:/data/addons:ro"

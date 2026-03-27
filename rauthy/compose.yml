@@ -1,6 +1,7 @@
 services:
   rauthy:
     image: ghcr.io/moonlight8978/rauthy:latest
+    user: "${NON_ROOT_USER}"
     volumes:
       - "${DATA_ROOT}/addons/rauthy/data:/app/data"
       - ./config.toml:/app/config.toml

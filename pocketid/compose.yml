@@ -3,6 +3,7 @@ services:
     image: ghcr.io/pocket-id/pocket-id:v2
     restart: unless-stopped
     env_file: .env
+    user: "${NON_ROOT_USER}"
     volumes:
       - "${DATA_ROOT}/addons/pocketid/data:/app/data"
     healthcheck:

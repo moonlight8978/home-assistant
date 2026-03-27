@@ -2,6 +2,7 @@ services:
   termix:
     image: ghcr.io/lukegus/termix:latest
     restart: unless-stopped
+    user: "${NON_ROOT_USER}"
     env_file:
       - .env
     volumes:

@@ -6,6 +6,7 @@ services:
     volumes:
       - ./config.json:/config.json
       - "${DATA_ROOT}/addons/actual/data:/data"
+    user: "${NON_ROOT_USER}"
     restart: unless-stopped
     labels:
       - traefik.enable=true

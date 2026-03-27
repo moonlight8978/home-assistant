@@ -1,6 +1,7 @@
 services:
   cloudflareddns:
     image: oznu/cloudflare-ddns:latest
+    user: "${NON_ROOT_USER}"
     env_file:
       - .env
     restart: unless-stopped

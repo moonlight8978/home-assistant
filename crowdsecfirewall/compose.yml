@@ -1,6 +1,7 @@
 services:
   crowdsecfirewall:
     image: ghcr.io/shgew/cs-firewall-bouncer-docker:latest
+    user: "${NON_ROOT_USER}"
     volumes:
       - ./crowdsec-firewall-bouncer.yaml:/config/crowdsec-firewall-bouncer.yaml:ro
       - ${LOG_ROOT:-/var/log}/crowdsecfirewall:/var/log/crowdsecfirewall
