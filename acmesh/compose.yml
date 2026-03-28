@@ -7,5 +7,14 @@ services:
     volumes:
       - "${DATA_ROOT}/addons/acmesh/data:/acme.sh"
     restart: unless-stopped
-    stdin_open: true
-    tty: true
+
+  acmesh-issue:
+    image: neilpang/acme.sh:latest
+    entrypoint: /entrypoint.sh
+    user: "${NON_ROOT_USER}"
+    profiles:
+      - task
+    env_file: .env
+    volumes:
+      - "${DATA_ROOT}/addons/acmesh/data:/acme.sh"
+      - ./issue-entrypoint.sh:/entrypoint.sh

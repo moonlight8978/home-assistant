@@ -6,5 +6,7 @@ warp-routing:
 no-autoupdate: true
 ingress:
   - hostname: "*.{{ $global.domain }}"
-    service: http://traefik:8080
+    service: https://traefik:8443
+    originRequest:
+      originServerName: "{{ $global.domain }}"
   - service: http_status:404

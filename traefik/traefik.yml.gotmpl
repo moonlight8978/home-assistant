@@ -6,10 +6,7 @@ entryPoints:
     address: ":8443"
     forwardedHeaders: &trustedProxies
       insecure: false
-  web:
-    address: ":8080"
-    forwardedHeaders: *trustedProxies
-
+    tls: {}
   webinternalinsecure:
     address: ":10080"
     http:
@@ -21,6 +18,7 @@ entryPoints:
   webinternal:
     address: ":10443"
     forwardedHeaders: *trustedProxies
+    tls: {}
 providers:
   docker:
     defaultRule: ""

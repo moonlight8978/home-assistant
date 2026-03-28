@@ -1,0 +1,7 @@
+{{- $global := (ds "value").global -}}
+#! /bin/sh
+
+/acme.sh --issue --standalone --dns dns_cf --server letsencrypt \
+  --domain {{ $global.domain }} \
+  --domain *.{{ $global.domain }} \
+  --domain *.{{ $global.sslipioDomain }}

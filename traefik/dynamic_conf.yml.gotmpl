@@ -11,7 +11,7 @@ http:
       rule: "Host(`{{ printf "%s.%s" $config.homeassistant.subdomain $domain }}`)"
       service: homeassistant@docker
       entryPoints:
-        - web
+        - websecure
       middlewares:
         - crowdsec
 
@@ -19,7 +19,7 @@ http:
       rule: "Host(`{{ printf "%s.%s" $config.memos.subdomain $domain }}`)"
       service: memos@docker
       entryPoints:
-        - web
+        - websecure
       middlewares:
         - crowdsec
 
@@ -27,7 +27,7 @@ http:
       rule: "Host(`{{ printf "%s.%s" $config.actual.subdomain $domain }}`)"
       service: actual@docker
       entryPoints:
-        - web
+        - websecure
       middlewares:
         - crowdsec
 
@@ -35,7 +35,7 @@ http:
       rule: "Host(`{{ printf "%s.%s" $config.pocketId.subdomain $domain }}`)"
       service: pocketid@docker
       entryPoints:
-        - web
+        - websecure
       middlewares:
         - crowdsec
 
@@ -43,7 +43,7 @@ http:
       rule: "Host(`{{ printf "%s.%s" $config.rauthy.subdomain $domain }}`)"
       service: rauthy@docker
       entryPoints:
-        - web
+        - websecure
       middlewares:
         - crowdsec
 
@@ -51,7 +51,7 @@ http:
       rule: "Host(`{{ printf "%s.%s" $config.oauth2proxy.subdomain $domain }}`)"
       service: oauth2proxy@docker
       entryPoints:
-        - web
+        - websecure
       middlewares:
         - crowdsec
 
@@ -59,7 +59,7 @@ http:
       rule: "Host(`{{ printf "%s-%s" $config.portainer.subdomain $sslipioDomain }}`)"
       service: portainer@docker
       entryPoints:
-        - web
+        - websecure
       middlewares:
         - crowdsec
         - oauth2
@@ -71,7 +71,6 @@ http:
         - webinternal
       middlewares:
         - oauth2
-      tls: {}
 
     adguardhome:
       rule: "Host(`{{ printf "%s-%s" $config.adguardhome.subdomain $sslipioDomain }}`)"
@@ -81,7 +80,6 @@ http:
       middlewares:
         - crowdsec
         - oauth2
-      tls: {}
 
     wgeasy:
       rule: "Host(`{{ printf "%s-%s" $config.wgeasy.subdomain $sslipioDomain }}`)"
@@ -91,7 +89,6 @@ http:
       middlewares:
         - crowdsec
         - oauth2
-      tls: {}
 
     glances:
       rule: "Host(`{{ printf "%s-%s" $config.glances.subdomain $sslipioDomain }}`)"
@@ -101,7 +98,6 @@ http:
       middlewares:
         - crowdsec
         - oauth2
-      tls: {}
 
     termix:
       rule: "Host(`{{ printf "%s-%s" $config.termix.subdomain $sslipioDomain }}`)"
@@ -111,7 +107,6 @@ http:
       middlewares:
         - crowdsec
         - oauth2
-      tls: {}
 
   services:
     glances:
@@ -152,5 +147,5 @@ http:
 
 tls:
   certificates:
-    - certFile: /acme.sh/{{$global.sslipioDomain}}_ecc/fullchain.cer
-      keyFile: /acme.sh/{{$global.sslipioDomain}}_ecc/{{$global.sslipioDomain}}.key
+    - certFile: /acme.sh/{{$domain}}_ecc/fullchain.cer
+      keyFile: /acme.sh/{{$domain}}_ecc/{{$domain}}.key

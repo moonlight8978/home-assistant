@@ -3,7 +3,7 @@ services:
     image: ghcr.io/moonlight8978/homeassistant-container-toolkit:latest
     working_dir: /templates
     profiles:
-      - dev
+      - task
     user: "${NON_ROOT_USER}"
     volumes:
       - ${WORKDIR}:/templates
