@@ -13,3 +13,5 @@ services:
       - "${DATA_ROOT}/addons/crowdsec/data/data:/var/lib/crowdsec/data"
       - ${LOG_ROOT:-/var/log}:/var/log:ro
     restart: unless-stopped
+    networks:
+      - ingress

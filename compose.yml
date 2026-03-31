@@ -33,3 +33,7 @@ networks:
   dockerproxy:
     internal: true
     driver: bridge
+  edge:
+    driver: bridge
+  ingress:
+    driver: bridge

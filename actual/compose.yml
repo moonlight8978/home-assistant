@@ -11,6 +11,9 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.actual.loadbalancer.server.port=5006
+      - traefik.docker.network=edge
+    networks:
+      - edge
     healthcheck:
       test: ["CMD-SHELL", "node src/scripts/health-check.js"]
       interval: 60s

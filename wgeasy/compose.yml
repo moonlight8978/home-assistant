@@ -6,6 +6,8 @@ services:
     volumes:
       - "${DATA_ROOT}/addons/wgeasy/data:/etc/wireguard"
       - /lib/modules:/lib/modules:ro
+    cap_drop:
+      - ALL
     cap_add:
       - NET_ADMIN
       # - SYS_MODULE
@@ -21,3 +23,6 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.wgeasy.loadbalancer.server.port=51821
+      - traefik.docker.network=edge
+    networks:
+      - edge

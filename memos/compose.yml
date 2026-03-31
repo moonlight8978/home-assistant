@@ -9,3 +9,6 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.memos.loadbalancer.server.port=5230
+      - traefik.docker.network=edge
+    networks:
+      - edge

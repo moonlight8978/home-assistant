@@ -9,3 +9,6 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.oauth2proxy.loadbalancer.server.port=4180
+      - traefik.docker.network=edge
+    networks:
+      - edge

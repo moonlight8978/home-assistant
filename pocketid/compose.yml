@@ -15,3 +15,6 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.pocketid.loadbalancer.server.port=1411
+      - traefik.docker.network=edge
+    networks:
+      - edge

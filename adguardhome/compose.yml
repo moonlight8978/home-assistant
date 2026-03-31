@@ -39,6 +39,9 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.adguardhome.loadbalancer.server.port=80
+      - traefik.docker.network=edge
+    networks:
+      - edge
     healthcheck:
       test: ["CMD-SHELL", "wget -q -O /dev/null http://localhost/ || exit 1"]
       interval: 60s

@@ -9,3 +9,6 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.rauthy.loadbalancer.server.port=8080
+      - traefik.docker.network=edge
+    networks:
+      - edge
